@@ -2,7 +2,7 @@
 
 import { Command, Option, InvalidArgumentError } from 'commander';
 import packageJson from '../package.json';
-
+import { setDebugLogging } from './utils/logging';
 const app = new Command();
 app.version(packageJson.version);
 
@@ -40,3 +40,4 @@ app.action(async (options) => {
   //TODO: Implement the file processing
 
   app.parse();
+});

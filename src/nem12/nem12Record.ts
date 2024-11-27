@@ -56,7 +56,8 @@ export abstract class NEM12Record {
                 return NEM12_300Record.parseRecord(content, tz);
             case 500:
                 return NEM12_500Record.parseRecord(content, tz);
-
+            case 900:
+                return new NEM12_900Record(content);
             default:
                 return new UnknownRecord(content);
         }
@@ -287,5 +288,12 @@ export class NEM12_500Record extends NEM12Record {
 
     getIndexRead(): string {
         return this.indexRead;
+    }
+}
+
+/// 900 Record indicates the end of the file
+export class NEM12_900Record extends NEM12Record {
+    constructor(content: string[]) {
+        super(900, content);
     }
 }
