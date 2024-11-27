@@ -1,0 +1,7 @@
+services:
+ app:
+  build: .
+  volumes:
+   - ./src:/app/src
+   - ./samples:/app/samples
+  command: npx tsc --watch
