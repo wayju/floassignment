@@ -11,12 +11,11 @@
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.5.4",
+    "typescript": "^5.7.2",
     "typescript-eslint": "^8.2.0"
   },
   "scripts": {
     "build": "tsc",
-    "start": "tsc && rm -f output.csv && node dist/index.js",
     "lint": "eslint src",
     "test": "jest",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
@@ -24,9 +23,7 @@
   "dependencies": {
     "commander": "^12.1.0",
     "csv-parse": "^5.5.6",
-    "csv-stringify": "^6.5.1",
     "date-fns": "^4.1.0",
-    "date-fns-tz": "^3.2.0",
     "fs": "^0.0.1-security",
     "kysely": "^0.27.4",
     "luxon": "^3.5.0",

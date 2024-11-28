@@ -1,0 +1,63 @@
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker-compose-init:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d floassignment"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+    networks:
+      - app_network
+
+  flo:
+    build: .
+    container_name: flo
+    volumes:
+      - ./src:/app/src
+      - ./examples:/app/examples
+    environment:
+      - DATABASE_HOST=postgres
+      - DATABASE_DB=floassignment
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_PORT=5432
+    command: npx tsc --watch
+    depends_on:
+      postgres:
+        condition: service_healthy 
+    networks:
+      - app_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - CSRF_ENABLED=False
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    command: /bin/bash -c "until pg_isready -h postgres -p 5432; do echo 'Waiting for PostgreSQL...'; sleep 2; done && /usr/local/bin/entrypoint.sh"
+    restart: always
+    networks:
+      - app_network
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:
