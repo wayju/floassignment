@@ -49,7 +49,6 @@ export async function readAndProcess(
       processStream.write(new Batch(startLine, endLine, batch)); // Send the batch to the processing stream
       batch = []; // Reset batch
       startLine = endLine + 1;
-      endLine = startLine;
     }
 
     batch.push(line);
