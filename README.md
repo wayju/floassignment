@@ -7,6 +7,8 @@ Console application for importing basic data from an NEM12 file. The console app
 ### Language Choice
 I have used Typescript because I was interested in trying batch operations in Node.js. Unless a team had an intention to only use or primarily use typescript I would prefer a language intended for highly concurrent processing. I would prefer golang or c#. Python may also be a good choice since it is a popular tool for data pipelines.
 
+The ORM used is a leightweight ORM that looked interesting after a quick search. I wouldn't endorse it without more experience.
+
 ## Getting Started
 
 A docker compose file is provided to bring up a pgsql database, pgadmin, and a container to run the console application. Example files and the source are mounted into the container for easier development and developer testing. When the application container loads, changes to the src are monitored (`npx tsc --watch`) so that changes can be immediately tested.
@@ -21,7 +23,11 @@ If an error occurs the batch will fail with line content, error message and batc
 ### Dependencies
 * Docker if running with Docker, or otherwise, 
 * Node.js >= v16.
-* Bash (mac / linux) if using the helper script to upload/fetch files from the application in docker.
+* Bash (mac / linux) if using the helper script to upload/fetch files from the application in docker.'
+
+### Notes
+* Upon creation the database table will be created by an init script in `docker-compose-init`
+* The database name used is floassignment.
 
 ## Improvements
 
