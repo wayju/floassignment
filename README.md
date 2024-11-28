@@ -29,6 +29,7 @@ If an error occurs the batch will fail with line content, error message and batc
 ### Notes
 * Upon creation the database table will be created by an init script in `docker-compose-init`
 * The database name used is floassignment.
+* I tested a file up to the size of 10000 meters with 30 days data each. This took a few minutes on my machine. 
 
 ## Improvements
 
